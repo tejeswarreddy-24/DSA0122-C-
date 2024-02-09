@@ -1,0 +1,244 @@
+Question 1. Guess the Number Game
+Implement a "guess the number" game using a while loop. The program should randomly select a number between 1 and 100, and then it prompts the user to guess the number. The loop continues until the user guesses the number correctly, providing hints ("too high" or "too low") after each guess.
+
+sol: #include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+int main()
+{
+	int num, guess, tries = 0;
+	srand(time(0)); 
+	num = rand() % 98 + 1;
+	cout << "Guess My Number Game\n\n";
+	do
+	{
+		cout << "Enter a guess between 0 and 99 : ";
+		cin >> guess;
+		tries++;
+
+		if (guess > num)
+			cout << "Too high!\n\n";
+		else if (guess < num)
+			cout << "Too low!\n\n";
+		else
+			cout << "\nCorrect! You got it in " << tries << " guesses!\n";
+	} while (guess != num);
+
+	return 0;
+}
+
+o/p : Guess My Number Game
+
+Enter a guess between 0 and 99 : 50
+Too low!
+
+Enter a guess between 0 and 99 : 60
+Too low!
+
+Enter a guess between 0 and 99 : 70
+Too low!
+
+Enter a guess between 0 and 99 : 80
+Too low!
+
+Enter a guess between 0 and 99 : 90
+Too low!
+
+Enter a guess between 0 and 99 : 95
+Too high!
+
+Enter a guess between 0 and 99 : 93
+Too high!
+
+Enter a guess between 0 and 99 : 92
+
+Correct! You got it in 8 guesses!
+
+--------------------------------
+Process exited after 30.29 seconds with return value 0
+Press any key to continue . . .
+
+
+
+Question 2.Write a program that prompts the user to enter a positive integer. Use a do-while loop to validate the input, ensuring the user re-enters the value until a valid positive integer is provided. Discuss why a do-while loop is more suitable for this scenario compared to a for or while loop.
+
+
+sol: #include <iostream>
+using namespace std;
+int main() {
+    int number;
+    do {
+        cout << "Enter a positive integer: ";
+        cin >> number;
+        if (number <= 0) {
+            cout << "Invalid input. Please enter a positive integer." << endl;
+        }
+    } while (number <= 0);
+    cout << "You entered a positive integer: " << number << endl;
+    return 0;
+}
+
+
+O/P : Enter a positive integer: 0
+Invalid input. Please enter a positive integer.
+Enter a positive integer: 4
+You entered a positive integer: 4
+
+--------------------------------
+Process exited after 6.77 seconds with return value 0
+Press any key to continue . . .
+
+
+
+Question 3. .Background:
+You are developing a software module for a sports competition where scores are represented as integers. The competition has three events, and each participant can score between 0 to 100 points in each event. Your task is to write a C++ function to determine the highest score among the three events for a given participant, ensuring that your solution is efficient and readable.
+
+
+sol: #include <iostream>
+using namespace std;
+int highestScore(int score1, int score2, int score3, int score4, int score5) {
+    int maxScore = score1;
+    if (score2 > maxScore) {
+        maxScore = score2;
+    }
+    if (score3 > maxScore) {
+        maxScore = score3;
+    }
+    if (score4 > maxScore) {
+        maxScore = score4;
+    }
+    if (score5 > maxScore) {
+        maxScore = score5;
+    }
+    return maxScore;
+}
+int main() {
+    int event1 = 85, event2 = 92, event3 = 78, event4 = 100, event5 = 90;
+    int highest = highestScore(event1, event2, event3, event4, event5);
+    cout << "The highest score is: " << highest << endl;
+    return 0;
+}
+
+
+o/p : The highest score is: 100
+
+--------------------------------
+Process exited after 0.09872 seconds with return value 0
+Press any key to continue . . .
+
+
+
+Question 4..Background:
+You are developing an e-commerce application where you need to apply discounts to purchases. The discount logic varies; it can be a fixed amount off, a percentage of the purchase price, or special rules for bulk purchases. To simplify the implementation, you decide to use function overloading to create several applyDiscount functions, each handling a different type of discount calculation.
+Question:
+Implement function overloading to handle three types of discounts:
+A fixed amount discount off the total purchase price.
+A percentage discount off the total purchase price.
+A discount for bulk purchases: if the number of items is above a certain threshold, apply a fixed discount per item.
+
+
+sol: #include <iostream>
+#include <iomanip>
+double calculateDiscountedPriceFixedAmount(double totalPrice, double fixedAmountDiscount) {
+    return totalPrice - fixedAmountDiscount;
+}
+double calculateDiscountedPricePercentage(double totalPrice, double percentageDiscount) {
+    return totalPrice - (totalPrice * percentageDiscount / 100.0);
+}
+double calculateDiscountedPriceBulk(double totalPrice, double bulkDiscountPerItem, int itemCount, int itemCountThreshold) {
+    
+    if (itemCount > itemCountThreshold) {
+        return totalPrice - (bulkDiscountPerItem * (itemCount - itemCountThreshold));
+    } else {
+        return totalPrice;
+    }
+}
+int main() {
+    double originalPrice, fixedAmountDiscount, percentageDiscount, bulkDiscountPerItem;
+    int itemCount, itemCountThreshold;
+    std::cout << "Enter the original price: $";
+    std::cin >> originalPrice;
+    std::cout << "Enter the fixed amount discount: $";
+    std::cin >> fixedAmountDiscount;
+    std::cout << "Enter the percentage discount: %";
+    std::cin >> percentageDiscount;
+    std::cout << "Enter the bulk discount per item: $";
+    std::cin >> bulkDiscountPerItem;
+    std::cout << "Enter the item count: ";
+    std::cin >> itemCount;
+    std::cout << "Enter the item count threshold for bulk discount: ";
+    std::cin >> itemCountThreshold;
+    std::cout << std::fixed << std::setprecision(2);
+    std::cout << "Original Price: $" << originalPrice << std::endl;
+    std::cout << "Discounted Price with Fixed Amount Discount: $" << calculateDiscountedPriceFixedAmount(originalPrice, fixedAmountDiscount) << std::endl;
+    std::cout << "Discounted Price with Percentage Discount: $" << calculateDiscountedPricePercentage(originalPrice, percentageDiscount) << std::endl;
+    std::cout << "Discounted Price with Bulk Purchase Discount: $" << calculateDiscountedPriceBulk(originalPrice, bulkDiscountPerItem, itemCount, itemCountThreshold) << std::endl;
+
+    return 0;
+}
+
+O/P : Enter the original price: $2000
+Enter the fixed amount discount: $250
+Enter the percentage discount: %10
+Enter the bulk discount per item: $16
+Enter the item count: 65
+Enter the item count threshold for bulk discount: 6
+Original Price: $2000.00
+Discounted Price with Fixed Amount Discount: $1750.00
+Discounted Price with Percentage Discount: $1800.00
+Discounted Price with Bulk Purchase Discount: $1056.00
+
+--------------------------------
+Process exited after 30.22 seconds with return value 0
+Press any key to continue . . .
+
+
+
+Question 5 : .Imagine you're developing a game where characters collect items that affect their stats and make decisions based on those stats. In this scenario, a character's health, experience, and inventory items will be influenced by various actions, demonstrating the use of different operators.
+Objective: Update the character's status based on the following actions:
+Collect experience points and items.
+Encounter a trap that affects health.
+Use an item from the inventory that boosts health.
+Make a decision based on health and experience levels.
+
+
+Sol:#include <iostream>
+using namespace std;
+int main() {
+    int health = 100;
+    int experience = 0;
+    int inventoryItems = 2;
+    experience += 50;
+    inventoryItems += 2;
+    int healthBoost = 0;
+    if (inventoryItems > 0) {
+        health += healthBoost;
+        inventoryItems--;
+    }
+    if (health <= 0) {
+        cout << "Game over! Your character has died." << endl;
+    } else if (experience >= 100) {
+        cout << "Congratulations! Your character leveled up!" << endl;
+    } else {
+        cout << "Keep playing! Your character is still alive and gaining experience." << endl;
+    }
+    cout << "Final status:" << endl;
+    cout << "Health: " << health << endl;
+    cout << "Experience: " << experience << endl;
+    cout << "Inventory items: " << inventoryItems << endl;
+    cout << "selected for the next round" << endl;
+    return 0;
+}
+
+
+O/P : Keep playing! Your character is still alive and gaining experience.
+Final status:
+Health: 110
+Experience: 20
+Inventory items: 1
+selected for the next round
+
+--------------------------------
+Process exited after 0.1049 seconds with return value 0
+Press any key to continue . . .
